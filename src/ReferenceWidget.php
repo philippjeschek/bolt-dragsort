@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AcmeCorp\ReferenceExtension;
+namespace Jeschek\DragSort;
 
 use Bolt\Widget\BaseWidget;
 use Bolt\Widget\CacheAwareInterface;
@@ -18,10 +18,10 @@ class ReferenceWidget extends BaseWidget implements TwigAwareInterface, CacheAwa
     use CacheTrait;
     use StopwatchTrait;
 
-    protected $name = 'AcmeCorp ReferenceWidget';
+    protected $name = 'DragSort Widget';
     protected $target = AdditionalTarget::WIDGET_BACK_DASHBOARD_ASIDE_TOP;
     protected $priority = 200;
-    protected $template = '@reference-extension/widget.html.twig';
+    protected $template = '@dragsort/widget.html.twig';
     protected $zone = RequestZone::BACKEND;
     protected $cacheDuration = -1800;
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AcmeCorp\ReferenceExtension;
+namespace Jeschek\DragSort;
 
 use Bolt\Extension\BaseExtension;
 
@@ -13,7 +13,7 @@ class Extension extends BaseExtension
      */
     public function getName(): string
     {
-        return 'AcmeCorp ReferenceExtension';
+        return 'DragSort Extension';
     }
 
     /**

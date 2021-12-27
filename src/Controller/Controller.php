@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AcmeCorp\ReferenceExtension\Controller;
+namespace Jeschek\DragSort\Controller;
 
 use Bolt\Extension\ExtensionController;
 use Bolt\Utils\Sanitiser;
@@ -13,15 +13,15 @@ use Twig\Environment;
 class Controller extends ExtensionController
 {
     /**
-     * @Route("/extensions/reference/{name}", name="extension_reference")
+     * @Route("/extensions/dragsort/{name}", name="dragsort_example")
      */
     public function index($name = 'foo', Sanitiser $sanitiser, Environment $twig): Response
     {
         $context = [
-            'title' => 'AcmeCorp Reference Extension',
+            'title' => 'DragSort Test',
             'name' => $name,
         ];
 
-        return $this->render('@reference-extension/page.html.twig', $context);
+        return $this->render('@dragsort/page.html.twig', $context);
     }
 }

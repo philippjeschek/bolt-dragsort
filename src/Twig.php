@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AcmeCorp\ReferenceExtension;
+namespace Jeschek\DragSort;
 
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;

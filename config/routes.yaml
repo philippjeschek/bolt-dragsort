@@ -1,4 +1,4 @@
 
 reference_extension:
-  resource: '../../vendor/acmecorp/reference-extension/src/Controller/'
+  resource: '../../vendor/jeschek/dragsort/src/Controller/'
   type: annotation

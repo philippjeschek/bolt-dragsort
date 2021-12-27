@@ -1,12 +1,12 @@
 {
-    "name": "acmecorp/reference-extension",
-    "description": "📦 This Bolt extension can be used as a starting point to base your own extensions on.",
+    "name": "jeschek/dragsort",
+    "description": "This extension enables drag and drop sorting for records in the backend.",
     "type": "bolt-extension",
     "license": "MIT",
     "authors": [
         {
-            "name": "YourNameHere",
-            "email": "youremail@acme.com"
+            "name": "Philipp Jeschek",
+            "email": "mail@philippjeschek.me"
         }
     ],
     "require": {
@@ -19,12 +19,12 @@
     },
     "autoload": {
         "psr-4": {
-            "AcmeCorp\\ReferenceExtension\\": "src/"
+            "Jeschek\\DragSort\\": "src/"
         }
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "extra": {
-        "entrypoint": "AcmeCorp\\ReferenceExtension\\Extension"
+        "entrypoint": "Jeschek\\DragSort\\Extension"
     }
 }
