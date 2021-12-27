@@ -5,23 +5,53 @@ declare(strict_types=1);
 namespace Jeschek\DragSort\Controller;
 
 use Bolt\Extension\ExtensionController;
-use Bolt\Utils\Sanitiser;
+use Bolt\Factory\ContentFactory;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Twig\Environment;
 
 class Controller extends ExtensionController
 {
     /**
-     * @Route("/extensions/dragsort/{name}", name="dragsort_example")
+     * @Route("/dragsort", name="dragsort_sort", methods={"POST"})
      */
-    public function index($name = 'foo', Sanitiser $sanitiser, Environment $twig): Response
+    public function handleDragSort(Request $request, ContentFactory $contentFactory): JsonResponse
     {
-        $context = [
-            'title' => 'DragSort Test',
-            'name' => $name,
-        ];
+        return $this->handleRequest($request, $contentFactory);
+    }
 
-        return $this->render('@dragsort/page.html.twig', $context);
+    private function handleRequest(Request $request, ContentFactory $contentFactory)
+    {
+
+        $contentType = $request->get('contentType');
+        $page = $request->get('page');
+        $order = $request->get('order');
+
+        if (!isset($this->getTwig()->getGlobals()['config']->get('contenttypes')[$contentType]['fields']['sort'])) {
+            return new JsonResponse([
+                'error' => true,
+            ], Response::HTTP_NOT_FOUND);
+        }
+
+        $perPage = $this->getTwig()->getGlobals()['config']->get('contenttypes')[$contentType]['records_per_page'];
+
+        $sort = 1 + (($page-1)*$perPage);
+
+        foreach ($order as $id) {
+            $content = $contentFactory->upsert($contentType, [
+                'id' => $id
+            ]);
+
+            $content->setFieldValue('sort', $sort);
+
+            $contentFactory->save($content);
+
+            $sort++;
+        }
+
+        return new JsonResponse([
+            'error' => false,
+        ], Response::HTTP_OK);
     }
 }

@@ -10,17 +10,11 @@ Installation:
 composer require jeschek/dragsort
 ```
 
+To enable drag and drop sorting add the following field to your content type:
 
-## Running PHPStan and Easy Codings Standard
-
-First, make sure dependencies are installed:
-
-```
-COMPOSER_MEMORY_LIMIT=-1 composer update
-```
-
-And then run ECS:
-
-```
-vendor/bin/ecs check src
+```yaml
+sort:
+    type: number
+    mode: integer
+    default: 10
 ```

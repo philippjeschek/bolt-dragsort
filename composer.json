@@ -10,12 +10,12 @@
         }
     ],
     "require": {
-        "php": ">=7.2.9",
+        "php": "^8.0",
         "twig/twig": "^2.12 | ^3.0"
     },
     "require-dev": {
-        "bolt/core": "^4.1",
-        "symplify/easy-coding-standard": "^8.3"
+        "bolt/core": "^5.1",
+        "symplify/easy-coding-standard": "^9.4"
     },
     "autoload": {
         "psr-4": {
@@ -26,5 +26,12 @@
     "prefer-stable": true,
     "extra": {
         "entrypoint": "Jeschek\\DragSort\\Extension"
+    },
+    "config": {
+        "allow-plugins": {
+            "symfony/flex": true,
+            "composer/package-versions-deprecated": true,
+            "drupol/composer-packages": true
+        }
     }
 }
