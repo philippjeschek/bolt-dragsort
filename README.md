@@ -1,13 +1,13 @@
-# Acme ReferenceExtension
+# Bolt 5 drag and drop extension
 
-Author: YourNameHere
+Author: Philipp Jeschek
 
-This Bolt extension can be used as a starting point to base your own extensions on.
+This extension enables drag and drop sorting for records in the backend.
 
 Installation:
 
 ```bash
-composer require acmecorp/reference-extension
+composer require jeschek/dragsort
 ```
 
 
