@@ -42,20 +42,6 @@ class SortWidget extends BaseWidget implements TwigAwareInterface, CacheAwareInt
         // Check if contenttype has field "sort"
         if (isset($this->getTwig()->getGlobals()['config']->get('contenttypes')[$request->attributes->all()['contentType']]['fields']['sort'])) {
 
-            //dd($this->getTwig()->getGlobals()['config']->get('contenttypes')[$request->attributes->all()['contentType']]['fields']);
-
-            // record fields
-            //dd($this->getTwig()->getGlobals()['config']->get('contenttypes'));
-
-
-            // get page
-            //dd($request->query->get('page'));
-
-            // contenttype
-            //dd($request->attributes->all()['contentType']);
-
-            dump($request->get('page'));
-
             $page = $request->query->get('page');
 
             $params['options'] = [
