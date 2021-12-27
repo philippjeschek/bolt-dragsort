@@ -6,6 +6,7 @@ namespace Jeschek\DragSort\Controller;
 
 use Bolt\Extension\ExtensionController;
 use Bolt\Factory\ContentFactory;
+use DateTime;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,16 +39,27 @@ class Controller extends ExtensionController
 
         $sort = 1 + (($page-1)*$perPage);
 
+        $startTimestamp = strtotime('2000-01-01');
+
+        $timestamp = $startTimestamp - (($page-1)*$perPage*3600);
+
         foreach ($order as $id) {
             $content = $contentFactory->upsert($contentType, [
                 'id' => $id
             ]);
+
+            $date = new DateTime();
+            $date->setTimestamp($timestamp);
+
+            $content->setCreatedAt($date);
 
             $content->setFieldValue('sort', $sort);
 
             $contentFactory->save($content);
 
             $sort++;
+
+            $timestamp = $timestamp - 3600;
         }
 
         return new JsonResponse([
