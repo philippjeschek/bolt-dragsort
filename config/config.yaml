@@ -1,1 +1,4 @@
 # empty dragsort configuration file
+# Workaround broken Bolt extensions page caused by empty extension config.
+# See https://github.com/bolt/core/issues/3158
+foo: true
