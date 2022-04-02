@@ -1,23 +1,23 @@
 <script src="{{ asset('assets/dragsort/jquery-1.8.3.js', 'public') }}"></script>
-<script src="{{ asset('assets/dragsort/jquery-ui-1.9.2.custom.min.js', 'public') }}"></script>
+<script src="{{ asset('assets/dragsort/sortable.1.15.0.min.js', 'public') }}"></script>
 
 <script>
-    var $container = $('.listing__records div span');
+    setTimeout(function() {
+        var el = document.querySelector( ".listing__records span" );
+        var records = el.querySelectorAll( ".listing--container" );
+        
+        for( var i = 0; i < records.length; i++ ){
+            var recordID = records[ i ].querySelector( ".custom-control-input" ).getAttribute( "id" ).replace('row-', '');
+            records[ i ].dataset.id = recordID;
+        }
 
-    $container.children('.listing--container').each(function(i) {
-        console.log($(this).find('.custom-control-input').attr('id').replace('row-', ''));
-        console.log(i)
-
-        $(this).attr('id', $(this).find('.custom-control-input').attr('id').replace('row-', ''));
-    });
-
-    $container.sortable({
-        stop: function() {
+        var sortable = Sortable.create( el );
+        sortable.option( "onUpdate", function( event ){
 
             var data = {
                 'contentType': '{{ options.contentType }}',
                 'page': '{{ options.page }}',
-                'order': $(this).sortable('toArray')
+                'order': sortable.toArray()
             };
 
             $.ajax({
@@ -29,6 +29,6 @@
                 },
                 dataType: 'json'
             });
-        }
-    });
+        });
+    }, 2000 );
 </script>
