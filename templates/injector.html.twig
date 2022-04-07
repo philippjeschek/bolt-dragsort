@@ -22,7 +22,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '{{ url('dragsort_sort', parameters = [], schemeRelative = false) }}',
+                url: '{{ path('dragsort_sort', parameters = [], relative = false) }}',
                 data: data,
                 success: function () {
                     // TODO
