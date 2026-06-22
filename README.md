@@ -1,33 +1,37 @@
-# Bolt 6 drag and drop extension
+# Bolt 6 Drag & Drop Extension
 
 Author: Philipp Jeschek
 
 This extension enables drag and drop sorting for records in the backend of Bolt 6.
 
-Installation:
+## Installation
 
 ```bash
 composer require jeschek/dragsort
 ```
 
-To enable drag and drop sorting add the following field to your content type:
+## Configuration
+
+To enable drag and drop sorting, you need to add a `sort` field to your content type definition (e.g., in `contenttypes.yml`):
 
 ```yaml
-sort:
-    type: number
-    mode: integer
-    default: 10
+articles:
+    name: Articles
+    singular_name: Article
+    # ... your other configuration ...
+    fields:
+        # ... your other fields ...
+        sort:
+            type: number
+            mode: integer
+            group: Meta
+            default: 10
 ```
 
-There are some issues when trying to sort the records in the backend using
+Finally, ensure your content type is configured to order records by this newly created `sort` field:
 
 ```yaml
-order: sort
-```
-
-To bypass that the addon changes the creation date to be able to sort by that property.
-If you use the creation date please create a full database backup before using this addon.
-
-```yaml
-order: createdAt
+articles:
+    # ...
+    order: sort
 ```

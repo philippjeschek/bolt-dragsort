@@ -8,9 +8,7 @@
     }
 </style>
 <script>
-    setTimeout(function() {
-        // Bind Sortable to the direct parent of record rows.
-        // This works for Bolt 6 and avoids dragging the whole group at once.
+    document.addEventListener('DOMContentLoaded', function() {
         var firstRecord = document.querySelector('.listing__records .listing--container');
         var el = firstRecord ? firstRecord.parentElement : null;
         if (!el) {
@@ -20,7 +18,6 @@
         var records = el.querySelectorAll('.listing--container');
 
         for (var i = 0; i < records.length; i++) {
-            // Bolt 6 uses .form-check-input (Bootstrap 5).
             var checkbox = records[i].querySelector('.form-check-input');
             if (!checkbox) {
                 continue;
@@ -35,13 +32,18 @@
             records[i].dataset.id = recordID;
         }
 
-        var sortable = Sortable.create(el);
+        var sortable = Sortable.create(el, {
+            animation: 150,
+            handle: '.listing--checkbox',
+            draggable: '.listing--container'
+        });
 
         sortable.option("onUpdate", function(event) {
 
             var formData = new URLSearchParams();
             formData.append('contentType', '{{ options.contentType }}');
             formData.append('page', '{{ options.page }}');
+            formData.append('perPage', '{{ options.perPage|default(20) }}');
 
             var orderArray = sortable.toArray();
             for (var i = 0; i < orderArray.length; i++) {
@@ -75,5 +77,5 @@
                 console.error('Error:', error);
             });
         });
-    }, 2000);
+    });
 </script>

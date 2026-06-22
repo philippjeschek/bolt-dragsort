@@ -6,7 +6,6 @@ namespace Jeschek\DragSort\Controller;
 
 use Bolt\Extension\ExtensionController;
 use Bolt\Factory\ContentFactory;
-use DateTime;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,12 +27,10 @@ class Controller extends ExtensionController
             ], Response::HTTP_BAD_REQUEST);
         }
 
-        // Berieme perPage z JavaScriptu, aby sme nepotrebovali Config (ako sme sa dohodli)
+        // Read perPage from the request payload to compute a stable sort offset across pages.
         $perPage = max(1, (int) $request->get('perPage', 20));
 
         $sort = 1 + (($page - 1) * $perPage);
-        $startTimestamp = strtotime('2000-01-01');
-        $timestamp = $startTimestamp - (($page - 1) * $perPage * 3600);
 
         foreach ($order as $id) {
             if (!is_numeric($id)) {
@@ -46,16 +43,11 @@ class Controller extends ExtensionController
                 'id' => $id
             ]);
 
-            $date = new DateTime();
-            $date->setTimestamp($timestamp);
-
-            $content->setCreatedAt($date);
             $content->setFieldValue('sort', $sort);
 
             $contentFactory->save($content);
 
             $sort++;
-            $timestamp -= 3600;
         }
 
         return new JsonResponse([
